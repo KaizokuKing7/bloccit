@@ -17,13 +17,13 @@ describe("routes : static", () => {
 
 
   });
-  describe("GET /marco", () => {
+  describe("GET /about", () => {
 
-    it("should return status code 200 and body to contain polo", (done) => {
+    it("should return status code 200 and body to contain 'About us'", () => {
 
-      request.get(`${base}marco`, (err, res, body) => {
+      request.get(`${base}about`, (err, res, body) => {
         expect(res.statusCode).toBe(200);
-        expect(body).toContain('polo');
+        expect(body).toContain('Abbout us');
         done();
       });
     });
