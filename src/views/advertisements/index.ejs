@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <main class="container">
+      <% include ../static/partials/navbar.ejs %>
+      
+      <h1>Advertisements</h1>
+      <ul class="list-group">
+        <% adverts.forEach((advert) => { %>
+            <li class="list-group-item">
+                    <h2><%= advert.title %></h1>
+                    <p><%= advert.description %></p>
+              </li>
+         <%}) %>   
+
+    </main>
+  </body>
+</html>
