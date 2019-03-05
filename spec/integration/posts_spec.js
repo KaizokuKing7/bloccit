@@ -80,6 +80,33 @@ describe("routes : posts", () => {
                 }
             );
         });
+        it("should not create a new post that fails validations", (done) => {
+            const options = {
+              url: `${base}/${this.topic.id}/posts/create`,
+              form: {
+     
+     //#1
+                title: "a",
+                body: "b"
+              }
+            };
+     
+            request.post(options,
+              (err, res, body) => {
+     
+     //#2
+                Post.findOne({where: {title: "a"}})
+                .then((post) => {
+                    expect(post).toBeNull();
+                    done();
+                })
+                .catch((err) => {
+                  console.log(err);
+                  done();
+                });
+              }
+            );
+          });
 
     });
 
@@ -145,27 +172,6 @@ describe("routes : posts", () => {
           });
         });
    
-        it("should update the post with the given values", (done) => {
-            const options = {
-              url: `${base}/${this.topic.id}/posts/${this.post.id}/update`,
-              form: {
-                title: "Snowman Building Competition"
-              }
-            };
-            request.post(options,
-              (err, res, body) => {
-   
-              expect(err).toBeNull();
-   
-              Post.findOne({
-                where: {id: this.post.id}
-              })
-              .then((post) => {
-                expect(post.title).toBe("Snowman Building Competition");
-                done();
-              });
-            });
-        });
    
       });
 
