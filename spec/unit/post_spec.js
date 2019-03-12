@@ -2,6 +2,7 @@ const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
 const Post = require("../../src/db/models").Post;
 const User = require("../../src/db/models").User;
+const Vote = require("../../src/db/models").Vote;
 
 describe("Post", () => {
 
@@ -44,21 +45,23 @@ describe("Post", () => {
     describe("#create()", () => {
 
         it("should create a post object with a title, body, and assigned topic and user", (done) => {
-            //#1
+            Vote.findAndCountAll().then((results)=> {
+                expect(results.count).toBe(1)
+            })
             Post.create({
                 title: "Pros of Cryosleep during the long journey",
                 body: "1. Not having to answer the 'are we there yet?' question.",
                 topicId: this.topic.id,
                 userId: this.user.id
             })
-                .then((post) => {
-
-                    //#2
+                .then((post) => {                    
+                    Vote.findAndCountAll().then((results)=> {
+                        expect(results.count).toBe(2)
+                    })
                     expect(post.title).toBe("Pros of Cryosleep during the long journey");
                     expect(post.body).toBe("1. Not having to answer the 'are we there yet?' question.");
                     expect(post.userId).toBe(this.user.id);
                     done();
-
                 })
                 .catch((err) => {
                     console.log(err);
