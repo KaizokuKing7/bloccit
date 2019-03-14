@@ -23,7 +23,9 @@ module.exports = {
             if (err || post == null) {
                 res.redirect(404, "/");
             } else {
-                res.render("posts/show", { post });
+                post.getFlairs().then((flairs) =>{
+                    res.render("posts/show", { post, flairs });
+                })
             }
         });
     },

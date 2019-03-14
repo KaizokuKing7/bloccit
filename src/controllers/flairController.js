@@ -10,9 +10,9 @@ module.exports = {
             color: req.body.color,
             postId: req.params.id
         };
-        flairQueries.addFlair(newFlair, (err, flair) => {
+        flairQueries.addFlair(newFlair, (err) => {
             if(err) {
-                res.redirect(500, "/flairs/new");
+                res.redirect(500, `/topics/${req.params.topicId}/posts/${req.params.id}/flairs/new`);
             } else {
                 res.redirect(303, `/topics/${req.params.topicId}/posts/${req.params.id}`);
             }
