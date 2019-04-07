@@ -9,11 +9,10 @@
     <% include ../static/partials/navbar.ejs %>
 
     <main class="container">
-        <h1><%= post.title %></h1>
-        <% flairs.forEach((flair) => { %>
-                 <button background-color: <%flair.color%> ><% flair.name %></button>
-          <% }) %>
-        
+        <h1><%= post.title %><% if(flairs) {flairs.forEach((flair) => { %>
+        <span class="badge text-white " style="background: <%= flair.color %>"><%= flair.name %></span>
+      <% })}%>
+    </h1>
         
         <a href="/topics/<%= post.topicId %>/posts/<%= post.id %>/edit" class="btn btn-warning">Edit</a>
         <form style="display:initial" action="/topics/<%= post.topicId %>/posts/<%= post.id %>/destroy" method="post">

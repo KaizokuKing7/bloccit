@@ -9,7 +9,14 @@
     <main class="container">
 
       <h1>Edit Post</h1>
-
+      <h4>Edit Flairs</h4>
+      <a class="btn btn-primary" href="/topics/<%= post.topicId %>/posts/<%= post.id %>/flairs/new">Create new flair</a>
+      <% if(flairs) {flairs.forEach((flair) => { %>
+            <a href="/topics/<%= post.topicId %>/posts/<%= post.id %>/flairs/<%= flair.id %>/edit">
+          <span class="btn text-white" style="background: <%= flair.color %>"><%= flair.name %>
+          </span>
+        </a>
+        <% })}%>
       <form action="/topics/<%= post.topicId %>/posts/<%= post.id %>/update" method="post">
         <div class="form-group">
           <label for="title">Post title</label>
@@ -22,7 +29,11 @@
         <button type="submit" class="btn btn-primary">Update</button>
       </form>
     </main>
-
+    <script>
+        function myfunction(){
+            console.log("include('../flairs/new.ejs', {post})");
+        }
+    </script>
     <% include ../static/partials/baseScripts.ejs %>
 
   </body>

@@ -22,7 +22,7 @@
      <% topic.posts.forEach((post) => { %>
        <li class="list-group-item">
             
-         <a href="/topics/<%= topic.id %>/posts/<%= post.id %>"> <%= post.title %></a>
+         <a href="/topics/<%= topic.id %>/posts/<%= post.id %>"> <%= post.title %> <%post.getFlairs().then((flairs) => flairs.forEach((flair) => { %> <span class="badge badge-pill badge-primary" style="background: <%= flair.color %>""><%= flair.name %></span>     <% }))%> </a>
         </li>
      <% }) %>
    </ul>

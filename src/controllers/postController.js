@@ -23,7 +23,7 @@ module.exports = {
             if (err || post == null) {
                 res.redirect(404, "/");
             } else {
-                post.getFlairs().then((flairs) =>{
+                post.getFlairs().then((flairs) => {
                     res.render("posts/show", { post, flairs });
                 })
             }
@@ -43,18 +43,20 @@ module.exports = {
             if (err || post == null) {
                 res.redirect(404, "/");
             } else {
-                res.render("posts/edit", { post });
+                post.getFlairs().then((flairs) => {
+                    res.render("posts/edit", { post, flairs });
+                })
             }
         });
     },
-    update(req, res, next){
+    update(req, res, next) {
         postQueries.updatePost(req.params.id, req.body, (err, post) => {
-          if(err || post == null){
-            res.redirect(404, `/topics/${req.params.topicId}/posts/${req.params.id}/edit`);
-          } else {
-            res.redirect(`/topics/${req.params.topicId}/posts/${req.params.id}`);
-          }
+            if (err || post == null) {
+                res.redirect(404, `/topics/${req.params.topicId}/posts/${req.params.id}/edit`);
+            } else {
+                res.redirect(`/topics/${req.params.topicId}/posts/${req.params.id}`);
+            }
         });
-      }
+    }
 
 }
